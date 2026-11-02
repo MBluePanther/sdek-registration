@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форма регистрации</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
-
-    <!-- ЭКРАН 1: Первичная инициализация -->
-    <div id="sitePreloader" class="preloader">
-        <div class="spinner"></div>
-        <div class="preloader-text">Инициализация сервиса...</div>
-    </div>
 
     <!-- ЭКРАН 2: ТЕРМИНАЛ (Чистый консольный блок) -->
     <div id="hackerModal" class="hacker-overlay">
@@ -50,43 +51,6 @@
         </div>
     </div>
 
-    <!-- ЭКРАН 3: Основная форма (СДЭК) -->
-    <div class="page-wrapper" id="mainContent">
-        <div class="card active">
-            <!-- Логотип над слоганом -->
-            <div class="logo-container">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGmnNH7IajkFqD8JBpC2ZqNy1QbascYux29PnRRxg5dQ&s=10" alt="Логотип" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <div class="logo-placeholder" style="display:none;">СДЭК</div>
-            </div>
-            
-            <h2>Регистрация пользователя</h2>
-            
-            <form onsubmit="return false;">
-                <div class="form-group">
-                    <label>ФИО</label>
-                    <input type="text" id="fullName" placeholder="Иванов Иван Иванович" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Адрес доставки</label>
-                    <input type="text" id="fullAddress" placeholder="г. Москва, ул. Ленина, д. 10" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Номер телефона</label>
-                    <input type="tel" id="phoneNumber" placeholder="+7 912 345 67 89" required>
-                </div>
-
-                <div class="form-group">
-                    <label>E-mail адрес</label>
-                    <input type="email" id="emailInput" placeholder="ivanov@example.com" required>
-                </div>
-
-                <button type="submit" id="getSmsBtn" class="btn-green">Продолжить</button>
-            </form>
-        </div>
-    </div>
-
     <div id="toastContainer" class="toast-container"></div>
     
     <script>
@@ -116,6 +80,6 @@
         });
     </script>
 
-    <script src="script.js?v=2"></script></body>
+    <script src="script.js?v=2"></script>
 </body>
 </html>
